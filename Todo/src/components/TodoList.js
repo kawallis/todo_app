@@ -6,17 +6,18 @@ export default class TodoList extends React.Component {
   constructor () {
     super();
     this.state = {
-      text: 'new item'
+      text: 'new task'
     }
   }
   render() {
-    const {todos, addTodo} = this.props
+    const {todos, addTodo, removeTodo, toggleTodo} = this.props
     return (
       <View style={styles.container}>
         {todos.map(task => {
-          return (<TodoItem 
+          return (<TodoItem toggleTodo={toggleTodo}
           key={task.id} name={task.name} 
-          id={task.id}
+          id={task.id} removeTodo={removeTodo}
+          completed={task.completed}
           />)
         })}
         <View style={styles.textInput}>
