@@ -6,20 +6,14 @@ export default class TodoList extends React.Component {
   constructor () {
     super();
     this.state = {
-      text: 'new task'
+      text: 'add a task'
     }
   }
   render() {
-    const {todos, addTodo, removeTodo, toggleTodo} = this.props
+    const {todos, addTodo, removeTodo, toggleTodo} = this.props;
+    console.log(todos);
     return (
       <View style={styles.container}>
-        {todos.map(task => {
-          return (<TodoItem toggleTodo={toggleTodo}
-          key={task.id} name={task.name} 
-          id={task.id} removeTodo={removeTodo}
-          completed={task.completed}
-          />)
-        })}
         <View style={styles.textInput}>
           <TextInput
             style={styles.textInput}
@@ -34,6 +28,13 @@ export default class TodoList extends React.Component {
             title="Add"
             color="#841584"
           />
+          {todos.map((task, i) => {
+          return (<TodoItem toggleTodo={toggleTodo}
+          key={i} name={task.name} number={i + 1}
+          id={task.id} removeTodo={removeTodo}
+          completed={task.completed}
+          />)
+        })}
         </View>
       </View>
     );
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 100,
   },
   baseText: {
     fontFamily: 'Cochin',

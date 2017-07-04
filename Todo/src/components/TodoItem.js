@@ -3,17 +3,13 @@ import { StyleSheet, View, Text, Button } from 'react-native';
 
 export default class TodoItem extends React.Component {
   render() {
-    const {name,completed, id, removeTodo, toggleTodo} = this.props
-    let markthrough;
-    if (completed) {
-      markthrough = 'line-through';
-    }else {
-      markthrough = 'none';
-    }
+    const {name,completed, id, removeTodo, toggleTodo, number} = this.props;
+    let markthrough = 'none';
+    if (completed) markthrough = 'line-through';
     return (
       <View style={itemStyles.containerTask}>
         <Text style={{textDecorationLine: markthrough}}>
-            {`${id}) ${name}`}
+            {`${number}) ${name}`}
         </Text>
         <Button
             onPress={(e) => {
@@ -38,13 +34,15 @@ export default class TodoItem extends React.Component {
 
 const itemStyles = StyleSheet.create({
   containerTask: {
+    flex: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    height: 40,
+    
   },
   baseText: {
     fontFamily: 'Cochin',
     color: 'black',
-    
   }
 })
