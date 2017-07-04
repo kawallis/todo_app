@@ -1,21 +1,29 @@
 import React from 'react';
 import {StyleSheet,Text,View,AppRegistry} from 'react-native';
-import { NativeRouter, Route, Link } from 'react-router-native';
+import { NativeRouter, Route, Link, Switch } from 'react-router-native';
 import TodoContainer from './Todo/TodoContainer';
 import HomeContainer from './Todo/HomeContainer';
 import SignUpContainer from './Todo/SignUpContainer';
 import UserListsContainer from './Todo/UserListsContainer';
-import EnsureLoggedInContainer from './Todo/EnsureLoggedInContainer';
+
+
+function requireAuth(nextState, replace) {
+  if (!this.props.isLoggedIn) {
+    replace({
+      pathname: '/login'
+    })
+  }
+}
 
 const Nav = () => (
   <NativeRouter>
     <View style={styles.container}>
-      <Route exact path="/" component={HomeContainer}/>
+      <Switch>
+        <Route exact path="/" component={HomeContainer}/>
         <Route exact path="/signup" component={SignUpContainer}/>
-      <Route component={EnsureLoggedInContainer}>  
-        <Route exact path="/userlists" component={UserListsContainer}/>
-        <Route path="/todo" component={TodoContainer}/>
-      </Route>
+        <Route exact path="/userlists" component={UserListsContainer} onEnter={requireAuth}/>
+        <Route path="/todo" component={TodoContainer} onEnter={requireAuth}/>
+      </Switch>
     </View>
   </NativeRouter>
 )
