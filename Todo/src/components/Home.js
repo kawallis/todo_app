@@ -29,7 +29,7 @@ export default class TodoItem extends React.Component {
     .set('Content-Type', 'application/json')
     .send(JSON.stringify(value))
     .then(res => {
-      this.props.login(res.text);
+      this.props.login(JSON.parse(res.text));
       this.props.history.push('/userlists');
     })
     .catch(error => console.log(error))

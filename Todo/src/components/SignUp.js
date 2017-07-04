@@ -40,7 +40,7 @@ export default class SignUp extends React.Component {
     return (
       <View style={itemStyles.containerTask}>
         <Text style={itemStyles.baseText}>
-        Sign Up Now Brolo Monolo
+        Sign Up Now
         </Text>
         <View style={itemStyles.loginContainer}>
           <View style={itemStyles.textInput}>
