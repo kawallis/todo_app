@@ -1,4 +1,4 @@
-import {ADD_TODO, REMOVE_TODO, TOGGLE_TODO, FILTER} from './constants';
+import {ADD_TODO, REMOVE_TODO, TOGGLE_TODO, FILTER, LOGIN, LOGOUT} from './constants';
 let nextTodoId = 2;
 export function addTodo(payload = 'go to laundry mat') {
   return {
@@ -25,6 +25,20 @@ export function removeTodo(payload) {
 export function filterTodo(payload) {
   return {
     type: FILTER,
+    payload
+  };
+}
+
+export function logout(payload) {
+  return {
+    type: LOGOUT,
+    payload
+  };
+}
+
+export function login(payload) {
+  return {
+    type: LOGIN,
     payload
   };
 }

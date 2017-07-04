@@ -1,14 +1,37 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
 import { Link } from 'react-router-native';
+import superagent from 'superagent';
 
 export default class SignUp extends React.Component {
   constructor () {
     super();
     this.state = {
-      username: 'username',
+      name: 'name',
+      email: 'email',
       password: 'password'
     }
+    this.signup = this.signup.bind(this);
+  }
+
+  signup(creds) {
+    fetch('http://localhost:5000/api/auth/signup',{
+        method: 'POST',
+        body: JSON.stringify(creds),
+        headers: new Headers({'Content-Type': 'application/json'})
+    }) 
+    .then(res => {
+        alert('Awesome Signup Now');
+        this.setState({
+          name: 'name',
+          email: 'email',
+          password: 'password'
+        })
+    })
+    .catch(err => {
+      console.log('There has been a problem: ' + err.message);
+      throw err;
+    });
   }
 
   render() {
@@ -23,8 +46,8 @@ export default class SignUp extends React.Component {
           <View style={itemStyles.textInput}>
             <TextInput
               style={itemStyles.textInput}
-              onChangeText={(username) => this.setState({username})}
-              value={this.state.username}
+              onChangeText={(email) => this.setState({email})}
+              value={this.state.email}
             />
           </View>
           <View style={itemStyles.textInput}>
@@ -37,8 +60,8 @@ export default class SignUp extends React.Component {
           <View style={itemStyles.textInput}>
             <TextInput
               style={itemStyles.textInput}
-              onChangeText={(password) => this.setState({password})}
-              value={this.state.password}
+              onChangeText={(name) => this.setState({name})}
+              value={this.state.name}
             />
           </View>
         </View>
@@ -49,12 +72,14 @@ export default class SignUp extends React.Component {
             style={itemStyles.navItem}>
               <Text>Back to Login</Text>
           </Link>
-          <Link
-            to="/userlists"
-            underlayColor='#f0f4f7'
-            style={itemStyles.navItem}>
-              <Text>Sign Up</Text>
-          </Link>
+          <Button 
+            onPress={(e) => {
+              e.preventDefault();
+              this.signup(this.state)
+            }}
+            title="Sign Up Now"
+            color="#841584"
+          />
         </View>
       </View>
     );

@@ -25,6 +25,10 @@ export default function TodoList(state, { type, payload, id}) {
     })};
   case FILTER:
     return {todos: state.todos, filter: !state.filter};
+  case LOGIN: 
+    let log = state.slice();
+    log.isLoggedIn = payload;
+    return log;
   default:
     return state;
   }

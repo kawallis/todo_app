@@ -5,14 +5,17 @@ import TodoContainer from './Todo/TodoContainer';
 import HomeContainer from './Todo/HomeContainer';
 import SignUpContainer from './Todo/SignUpContainer';
 import UserListsContainer from './Todo/UserListsContainer';
+import EnsureLoggedInContainer from './Todo/EnsureLoggedInContainer';
 
 const Nav = () => (
   <NativeRouter>
     <View style={styles.container}>
       <Route exact path="/" component={HomeContainer}/>
-      <Route exact path="/signup" component={SignUpContainer}/>
-      <Route exact path="/userlists" component={UserListsContainer}/>
-      <Route path="/todo" component={TodoContainer}/>
+        <Route exact path="/signup" component={SignUpContainer}/>
+      <Route component={EnsureLoggedInContainer}>  
+        <Route exact path="/userlists" component={UserListsContainer}/>
+        <Route path="/todo" component={TodoContainer}/>
+      </Route>
     </View>
   </NativeRouter>
 )

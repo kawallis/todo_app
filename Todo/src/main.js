@@ -7,9 +7,12 @@ import devTools from 'remote-redux-devtools';
 import thunk from 'redux-thunk';
 import reducers from './Todo/reducers';
 
-const store = createStore(reducers, {todos: [
-  {name: 'Become a Big Baller', completed: false, id: 1}
-], filter: false},
+const store = createStore(reducers, {
+  todos: [{name: 'Become a Big Baller', completed: false, id: 1}],
+  filter: false,
+  isLoggedIn: false,
+  token: '',
+},
 compose(
    applyMiddleware(thunk),
    devTools({

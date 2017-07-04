@@ -16,9 +16,9 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js --watch",
-    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
+    "test": "node node_modules/jest/bin/jest.js --watch"
   },
+  "proxy": "http://localhost:5000/",
   "jest": {
     "preset": "jest-expo"
   },
@@ -32,6 +32,7 @@
     "redux": "^3.6.0",
     "redux-actions": "^2.0.1",
     "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "superagent": "^3.5.2"
   }
 }
