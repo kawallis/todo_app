@@ -14,7 +14,7 @@ function requireAuth(nextState, replace) {
     })
   }
 }
-
+//
 const Nav = () => (
   <NativeRouter>
     <View style={styles.container}>
