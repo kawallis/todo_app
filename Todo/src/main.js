@@ -12,6 +12,7 @@ const store = createStore(reducers, {
   filter: false,
   isLoggedIn: false,
   token: '',
+  user: {},
 },
 compose(
    applyMiddleware(thunk),

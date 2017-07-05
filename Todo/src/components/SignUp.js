@@ -15,6 +15,7 @@ export default class SignUp extends React.Component {
   }
 
   signup(creds) {
+    creds.email = creds.email.toLowerCase();
     fetch('http://localhost:5000/api/auth/signup',{
         method: 'POST',
         body: JSON.stringify(creds),
@@ -36,11 +37,10 @@ export default class SignUp extends React.Component {
 
   render() {
     const {todos} = this.props;
-    console.log(todos);
     return (
       <View style={itemStyles.containerTask}>
         <Text style={itemStyles.baseText}>
-        Sign Up Now Brolo Monolo
+        Sign Up Now
         </Text>
         <View style={itemStyles.loginContainer}>
           <View style={itemStyles.textInput}>

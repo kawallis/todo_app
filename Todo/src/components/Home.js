@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button, TextInput, TouchableHighlight } from 'react-native';
-import { Link } from 'react-router-native';
+import { Link, browserHistory } from 'react-router-native';
+import request from 'superagent';
 var t = require('tcomb-form-native');
 
 export default class TodoItem extends React.Component {
@@ -14,37 +15,25 @@ export default class TodoItem extends React.Component {
 
   handleSubmit() {
     let value = this.refs.form.getValue()
-    if (value && value.password > 8 ) {
+    if (value.email) {
       this.setState({
         isLoading: true,
       })
       this._authenticate(value)
-    } else {
-      alert('Your password needs to be at least 8 characters long.')
     }
   }
 
   _authenticate(value) {
-    console.log(this.props);
-    let obj = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(value),
-    }
-    let url = 'http://localhost:5000/api/auth/signin';
-    fetch(url, obj)
-    .then(json => _handleAfterAuthenticate(json))
+    request
+    .post('http://localhost:5000/api/auth/signin')
+    .set('Content-Type', 'application/json')
+    .send(JSON.stringify(value))
+    .then(res => {
+      this.props.login(JSON.parse(res.text));
+      this.props.history.push('/userlists');
+    })
     .catch(error => console.log(error))
     .done()
-  }
-
-  _handleAfterAuthenticate (json) {
-    console.log(json);
-    alert('Congrats Get Started Now');
-
   }
 
   onChange(value) {
@@ -72,6 +61,7 @@ export default class TodoItem extends React.Component {
         }
       }
     }
+    console.log(this.props);
     return (
       <View style={itemStyles.containerTask}>
         <Text style={itemStyles.baseText}>

@@ -1,4 +1,4 @@
-import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, FILTER } from './constants';
+import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, FILTER, LOGIN } from './constants';
 
 export default function TodoList(state, { type, payload, id}) {
   switch (type) {
@@ -26,8 +26,11 @@ export default function TodoList(state, { type, payload, id}) {
   case FILTER:
     return {todos: state.todos, filter: !state.filter};
   case LOGIN: 
-    let log = state.slice();
-    log.isLoggedIn = payload;
+    let {loggedUser, token} = payload;
+    let log = {...state};
+    log.token = token;
+    log.isLoggedIn = true;
+    log.user = {id: loggedUser._id, name: loggedUser.name, email: loggedUser.email, lists: loggedUser.lists};
     return log;
   default:
     return state;
